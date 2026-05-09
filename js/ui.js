@@ -72,6 +72,7 @@ export function renderRecords(records, { onView, onEdit } = {}) {
         <div class="tl-card">
 
           <div class="tl-top-bar">
+            ${r.balamNumber ? `<span class="tl-page-badge">বালাম নং ${r.balamNumber}</span>` : "<span></span>"}
             ${r.pageNumber ? `<span class="tl-page-badge">পেইজ ${r.pageNumber}</span>` : "<span></span>"}
             <div class="tl-top-right">
               ${date ? `<span class="tl-date">${date}</span>` : ""}
@@ -114,12 +115,17 @@ export function renderRecords(records, { onView, onEdit } = {}) {
             </div>
           </div>
 
-          ${r.denmahr ? `
-          <div class="tl-footer-bar">
-            <span class="tl-denmahr-tag">💰 দেনমোহর</span>
-            <span class="tl-denmahr-val">${r.denmahr}</span>
-          </div>` : ""}
-
+            ${r.denmahr ? `
+            <div class="tl-footer-bar" style="display:flex; justify-content:space-between; align-items:center;">
+           <div>
+                <span class="tl-denmahr-tag">💰 দেনমোহর</span>
+                <span class="tl-denmahr-val">${r.denmahr}</span>
+           </div>
+  <div>
+    <span class="tl-osli-tag">📜 ওসলি</span>
+    <span class="tl-osli-val">${r.osli}</span>
+  </div>
+</div>` : ""}
         </div>
       </div>`;
   }).join("");
