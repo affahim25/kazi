@@ -1,6 +1,6 @@
 // js/app.js
-import { db, ref, push, get, update } from "./firebase.js";
-import { uploadImage }                from "./cloudinary.js";
+import { db, ref, push, get, update, remove } from "./firebase.js";
+import { uploadImage }                        from "./cloudinary.js";
 import {
   showToast,
   switchTab,
@@ -12,6 +12,7 @@ import {
   showErrorRecords,
   showViewModal,
   showEditModal,
+  showConfirmDelete,
 } from "./ui.js";
 
 // ── State ─────────────────────────────────────────────────────
@@ -83,16 +84,16 @@ async function submitForm() {
   const record = {
     groomName,
     brideName,
-    groomNid:   document.getElementById("groom-nid").value.trim(),
-    brideNid:   document.getElementById("bride-nid").value.trim(),
-    denmahr:    document.getElementById("denmahr").value.trim(),
-    pageNumber: document.getElementById("page-number").value.trim(),
+    groomNid:    document.getElementById("groom-nid").value.trim(),
+    brideNid:    document.getElementById("bride-nid").value.trim(),
+    denmahr:     document.getElementById("denmahr").value.trim(),
+    pageNumber:  document.getElementById("page-number").value.trim(),
     balamNumber: document.getElementById("balam-number").value.trim(),
-    osli: document.getElementById("osli").value.trim(),
-    groomImage: state.groomImageUrl || null,
-    brideImage: state.brideImageUrl || null,
-    createdAt:  new Date().toISOString(),
-    timestamp:  Date.now(),
+    osli:        document.getElementById("osli").value.trim(),
+    groomImage:  state.groomImageUrl || null,
+    brideImage:  state.brideImageUrl || null,
+    createdAt:   new Date().toISOString(),
+    timestamp:   Date.now(),
   };
   const btn = document.getElementById("submit-btn");
   setButtonLoading(btn, true);
@@ -108,7 +109,7 @@ async function submitForm() {
 }
 
 function resetForm() {
-  ["groom-name", "bride-name", "groom-nid", "bride-nid", "denmahr", "page-number"]
+  ["groom-name", "bride-name", "groom-nid", "bride-nid", "denmahr", "page-number", "balam-number", "osli"]
     .forEach((id) => { document.getElementById(id).value = ""; });
   resetPhotoPreview("groom");
   resetPhotoPreview("bride");
@@ -131,12 +132,14 @@ async function loadRecords() {
   }
 }
 
-// ── Handlers passed to renderRecords ─────────────────────────
+// ── Handlers ─────────────────────────────────────────────────
 function handlers() {
   return {
     onView: (id) => {
       const record = state.allRecords.find((r) => r.id === id);
-      if (record) showViewModal(record);
+      if (record) showViewModal(record, {
+        onDelete: (rid, rec) => showConfirmDelete(rec, deleteRecord),
+      });
     },
     onEdit: (id) => {
       const record = state.allRecords.find((r) => r.id === id);
@@ -145,15 +148,26 @@ function handlers() {
   };
 }
 
+// ── Save edit ─────────────────────────────────────────────────
 async function saveEdit(id, updatedFields) {
   await update(ref(db, `nikah-records/${id}`), updatedFields);
-  // Update local state
   const idx = state.allRecords.findIndex((r) => r.id === id);
   if (idx !== -1) state.allRecords[idx] = { ...state.allRecords[idx], ...updatedFields };
+  rerenderList();
+}
+
+// ── Delete record ─────────────────────────────────────────────
+async function deleteRecord(id) {
+  await remove(ref(db, `nikah-records/${id}`));
+  state.allRecords = state.allRecords.filter((r) => r.id !== id);
+  rerenderList();
+}
+
+// ── Re-render (respects active search) ───────────────────────
+function rerenderList() {
+  const q = document.getElementById("search-input").value;
   renderRecords(
-    document.getElementById("search-input").value.trim()
-      ? state.allRecords.filter(filterFn(document.getElementById("search-input").value))
-      : state.allRecords,
+    q.trim() ? state.allRecords.filter(filterFn(q)) : state.allRecords,
     handlers()
   );
 }
@@ -166,7 +180,7 @@ function bindSearch() {
 function filterFn(q) {
   const ql = q.toLowerCase().trim();
   return (r) =>
-    [r.groomName, r.brideName, r.groomNid, r.brideNid, r.pageNumber]
+    [r.groomName, r.brideName, r.groomNid, r.brideNid, r.pageNumber, r.balamNumber]
       .some((v) => (v || "").toLowerCase().includes(ql));
 }
 
