@@ -582,7 +582,6 @@ input[type="file"] { display: none; }
 }
 
 /* ── Top bar ── */
-/* ── Top bar ── */
 .tl-top-bar {
   display: flex;
   flex-wrap: wrap;
@@ -608,12 +607,12 @@ input[type="file"] { display: none; }
 .tl-top-right {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   margin-left: auto;
 }
 
 .tl-date {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   color: rgba(255,255,255,0.5);
   letter-spacing: 0.3px;
   white-space: nowrap;
@@ -622,18 +621,19 @@ input[type="file"] { display: none; }
 /* ── Action Buttons ── */
 .tl-action-btns {
   display: flex;
-  gap: 6px;
+  gap: 5px;
+  flex-shrink: 0;
 }
 
 .tl-btn {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  padding: 4px 12px;
+  gap: 4px;
+  padding: 4px 10px;
   border: none;
   border-radius: 20px;
   font-family: var(--font);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 600;
   cursor: pointer;
   letter-spacing: 0.3px;
@@ -642,8 +642,8 @@ input[type="file"] { display: none; }
 }
 
 .tl-btn svg {
-  width: 12px;
-  height: 12px;
+  width: 11px;
+  height: 11px;
   flex-shrink: 0;
 }
 
@@ -667,6 +667,36 @@ input[type="file"] { display: none; }
 }
 
 .tl-btn-edit:hover { background: rgba(201,168,76,0.32); }
+
+/* মোবাইলে top-bar দুই লাইনে ভাগ হবে */
+@media (max-width: 480px) {
+  .tl-top-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    padding: 8px 12px;
+  }
+
+  .tl-badges-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .tl-top-right {
+    margin-left: 0;
+    justify-content: flex-end;
+  }
+
+  .tl-date { display: none; }
+
+  .tl-btn {
+    padding: 5px 12px;
+    font-size: 0.72rem;
+  }
+
+  .tl-btn svg { width: 12px; height: 12px; }
+}
 
 /* ── Couple row ── */
 .tl-couple-row {
@@ -1057,366 +1087,4 @@ input[type="file"] { display: none; }
   .photo-empty-lg      { width: 76px; height: 76px; }
   .modal-name          { font-size: 0.9rem; }
   .edit-form-grid      { grid-template-columns: 1fr; }
-}
-
-/* ============================================================
-   ডিলিট বাটন — ভিউ modal-এর ভেতরে
-   ============================================================ */
-.modal-footer {
-  display: flex;
-  gap: 12px;
-  margin-top: 4px;
-}
-
-.btn-modal-delete {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  flex: 1;
-  padding: 12px;
-  background: rgba(220, 53, 69, 0.08);
-  border: 1.5px solid rgba(220, 53, 69, 0.35);
-  border-radius: 10px;
-  font-family: var(--font);
-  font-size: 0.92rem;
-  color: #dc3545;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s, border-color 0.2s, transform 0.2s;
-}
-
-.btn-modal-delete svg {
-  width: 15px;
-  height: 15px;
-  flex-shrink: 0;
-}
-
-.btn-modal-delete:hover {
-  background: rgba(220, 53, 69, 0.16);
-  border-color: rgba(220, 53, 69, 0.6);
-  transform: translateY(-1px);
-}
-
-.btn-modal-close-bottom {
-  flex: 2;
-  padding: 12px;
-  background: var(--cream);
-  border: 1.5px solid var(--border);
-  border-radius: 10px;
-  font-family: var(--font);
-  font-size: 0.92rem;
-  color: var(--text-muted);
-  cursor: pointer;
-  font-weight: 600;
-  transition: background 0.2s, border-color 0.2s, color 0.2s;
-}
-
-.btn-modal-close-bottom:hover {
-  background: rgba(201, 168, 76, 0.08);
-  border-color: var(--gold);
-  color: var(--gold-dark);
-}
-
-/* ============================================================
-   কনফার্ম ডিলিট MODAL
-   ============================================================ */
-.modal-box-confirm { max-width: 400px; }
-
-.confirm-icon {
-  font-size: 3.5rem;
-  display: block;
-  margin-bottom: 16px;
-  animation: wiggle 0.5s ease;
-}
-
-@keyframes wiggle {
-  0%,100% { transform: rotate(0deg); }
-  25%      { transform: rotate(-12deg); }
-  75%      { transform: rotate(12deg); }
-}
-
-.confirm-msg {
-  font-size: 0.97rem;
-  color: var(--text-main);
-  line-height: 1.75;
-}
-
-.btn-confirm-delete {
-  flex: 2;
-  padding: 12px;
-  background: linear-gradient(135deg, #c0392b, #e74c3c);
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  font-family: var(--font);
-  font-size: 0.95rem;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 4px 16px rgba(220, 53, 69, 0.3);
-  transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.btn-confirm-delete:hover:not(:disabled) {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(220, 53, 69, 0.45);
-}
-
-.btn-confirm-delete:disabled { opacity: 0.7; cursor: not-allowed; }
-
-.btn-confirm-delete.loading .btn-text { display: none; }
-.btn-confirm-delete.loading .spinner  {
-  display: block;
-  border-color: rgba(255,255,255,0.3);
-  border-top-color: #fff;
-}
-
-/* ── Modal overlay (যদি না থাকে) ── */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(10, 7, 3, 0.72);
-  z-index: 9000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  opacity: 0;
-  transition: opacity 0.28s ease;
-  backdrop-filter: blur(4px);
-}
-
-.modal-overlay.modal-visible { opacity: 1; }
-.modal-overlay.modal-visible .modal-box {
-  transform: translateY(0) scale(1);
-  opacity: 1;
-}
-
-.modal-box {
-  background: #fff;
-  border-radius: 20px;
-  width: 100%;
-  max-width: 520px;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 24px 80px rgba(0,0,0,0.45);
-  border: 1px solid var(--border);
-  transform: translateY(24px) scale(0.97);
-  opacity: 0;
-  transition: transform 0.3s cubic-bezier(0.34,1.3,0.64,1), opacity 0.28s ease;
-  position: relative;
-}
-
-.modal-box-edit { max-width: 580px; }
-
-.modal-header {
-  background: linear-gradient(135deg, var(--dark) 0%, var(--dark-2) 100%);
-  padding: 18px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  border-radius: 20px 20px 0 0;
-  border-bottom: 2px solid var(--gold-dark);
-  position: relative;
-}
-
-.modal-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--gold-light);
-  letter-spacing: 0.5px;
-}
-
-.modal-header-ornament { font-size: 1.2rem; color: var(--gold); opacity: 0.7; }
-
-.modal-close {
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.15);
-  color: rgba(255,255,255,0.7);
-  width: 30px; height: 30px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 0.85rem;
-  display: flex; align-items: center; justify-content: center;
-  transition: background 0.2s, color 0.2s;
-}
-
-.modal-close:hover { background: rgba(255,255,255,0.2); color: #fff; }
-
-.modal-body { padding: 24px; }
-
-.modal-meta-row {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 20px;
-}
-
-.modal-page-badge {
-  background: linear-gradient(135deg, var(--gold-dark), var(--gold));
-  color: #fff;
-  font-size: 0.78rem;
-  font-weight: 700;
-  padding: 4px 14px;
-  border-radius: 20px;
-  letter-spacing: 0.5px;
-}
-
-.modal-date { font-size: 0.8rem; color: var(--text-muted); margin-left: auto; }
-
-.modal-couple {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 20px;
-}
-
-.modal-person {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  text-align: center;
-}
-
-.modal-photo {
-  width: 100px; height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  display: block;
-}
-
-.photo-empty-lg {
-  width: 100px; height: 100px;
-  border-radius: 50%;
-  background: var(--cream);
-  border: 2px dashed var(--gold);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 2.4rem;
-}
-
-.modal-name { font-size: 1.05rem; font-weight: 700; color: var(--dark-2); }
-.modal-nid  { font-size: 0.75rem; color: var(--text-muted); font-family: monospace; }
-
-.modal-divider {
-  display: flex; flex-direction: column;
-  align-items: center; gap: 6px; flex-shrink: 0;
-}
-
-.modal-vline   { width: 1px; height: 30px; background: var(--border); }
-.modal-moon-big { font-size: 1.8rem; color: var(--gold); }
-
-.modal-info-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: linear-gradient(90deg, rgba(201,168,76,0.07), rgba(201,168,76,0.02));
-  border: 1px dashed var(--border);
-  border-radius: 10px;
-  padding: 12px 18px;
-  margin-bottom: 12px;
-}
-
-.modal-info-label { font-size: 0.82rem; color: var(--text-muted); font-weight: 600; }
-.modal-info-val   { font-size: 0.95rem; font-weight: 700; color: var(--gold-dark); }
-
-.edit-form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  margin-bottom: 20px;
-}
-
-.btn-modal-cancel {
-  flex: 1;
-  padding: 12px;
-  background: var(--cream);
-  border: 1.5px solid var(--border);
-  border-radius: 10px;
-  font-family: var(--font);
-  font-size: 0.92rem;
-  color: var(--text-muted);
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s, border-color 0.2s, color 0.2s;
-}
-
-.btn-modal-cancel:hover {
-  background: rgba(201,168,76,0.08);
-  border-color: var(--gold);
-  color: var(--gold-dark);
-}
-
-.btn-modal-save {
-  flex: 2;
-  padding: 12px;
-  background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 60%, var(--gold-light) 100%);
-  color: var(--dark);
-  border: none;
-  border-radius: 10px;
-  font-family: var(--font);
-  font-size: 0.95rem;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 4px 16px rgba(201,168,76,0.3);
-  transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
-  display: flex; align-items: center; justify-content: center;
-}
-
-.btn-modal-save:hover:not(:disabled) {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(201,168,76,0.4);
-}
-
-.btn-modal-save:disabled { opacity: 0.7; cursor: not-allowed; }
-.btn-modal-save.loading .btn-text { display: none; }
-.btn-modal-save.loading .spinner  { display: block; }
-
-@media (max-width: 500px) {
-  .modal-box           { border-radius: 16px; }
-  .modal-header        { border-radius: 16px 16px 0 0; }
-  .modal-photo,
-  .photo-empty-lg      { width: 76px; height: 76px; }
-  .modal-name          { font-size: 0.9rem; }
-  .edit-form-grid      { grid-template-columns: 1fr; }
-}
-
-/* মোবাইলে top-bar দুই লাইনে ভাগ হবে */
-.tl-badges-row {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
-@media (max-width: 480px) {
-  .tl-top-bar {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 6px;
-    padding: 8px 12px;
-  }
-
-  .tl-top-right {
-    margin-left: 0;
-    justify-content: flex-end;
-  }
-
-  .tl-date { display: none; }
-
-  .tl-btn {
-    padding: 5px 12px;
-    font-size: 0.72rem;
-  }
-
-  .tl-btn svg { width: 12px; height: 12px; }
 }
