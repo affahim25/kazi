@@ -72,9 +72,10 @@ export function renderRecords(records, { onView, onEdit } = {}) {
         <div class="tl-card">
 
           <div class="tl-top-bar">
-          <div class="tl-badges-row">
-            ${r.balamNumber ? `<span class="tl-page-badge">বালাম নং ${r.balamNumber}</span>` : "<span></span>"}
-            ${r.pageNumber ? `<span class="tl-page-badge">পেইজ ${r.pageNumber}</span>` : "<span></span>"}
+            <div class="tl-badges-row">
+              ${r.balamNumber ? `<span class="tl-page-badge">বালাম নং ${r.balamNumber}</span>` : ""}
+              ${r.pageNumber ? `<span class="tl-page-badge">পেইজ ${r.pageNumber}</span>` : ""}
+            </div>
             <div class="tl-top-right">
               ${date ? `<span class="tl-date">${date}</span>` : ""}
               <div class="tl-action-btns">
@@ -116,18 +117,17 @@ export function renderRecords(records, { onView, onEdit } = {}) {
             </div>
           </div>
 
-          ${r.denmahr ? `
-          <div class="tl-footer-bar" style="display:flex; justify-content:space-between; align-items:center;">
-            <div>
-              <span class="tl-denmahr-tag">💰 দেনমোহর</span>
-              <span class="tl-denmahr-val">${r.denmahr}</span>
-            </div>
-            <div>
-              <span class="tl-osli-tag">📜 ওসলি</span>
-              <span class="tl-osli-val">${r.osli || "—"}</span>
-            </div>
-          </div>` : ""}
-
+            ${r.denmahr ? `
+            <div class="tl-footer-bar" style="display:flex; justify-content:space-between; align-items:center;">
+           <div>
+                <span class="tl-denmahr-tag">💰 দেনমোহর</span>
+                <span class="tl-denmahr-val">${r.denmahr}</span>
+           </div>
+  <div>
+    <span class="tl-osli-tag">📜 ওসলি</span>
+    <span class="tl-osli-val">${r.osli}</span>
+  </div>
+</div>` : ""}
         </div>
       </div>`;
   }).join("");
@@ -164,7 +164,7 @@ export function showErrorRecords(msg) {
 }
 
 // ── View Modal ────────────────────────────────────────────────
-export function showViewModal(record, { onDelete } = {}) {
+export function showViewModal(record) {
   removeModal();
 
   const date = record.createdAt
@@ -192,7 +192,7 @@ export function showViewModal(record, { onDelete } = {}) {
       </div>
       <div class="modal-body">
         <div class="modal-meta-row">
-          ${record.balamNumber ? `<div class="modal-page-badge">বালাম নং ${record.balamNumber}</div>` : ""}
+         ${record.balamNumber ? `<div class="modal-page-badge">বালাম নং ${record.balamNumber}</div>` : ""}
           ${record.pageNumber ? `<div class="modal-page-badge">পেইজ ${record.pageNumber}</div>` : ""}
           <div class="modal-date">📅 ${date}</div>
         </div>
@@ -225,19 +225,13 @@ export function showViewModal(record, { onDelete } = {}) {
           <span class="modal-info-val">${record.denmahr}</span>
         </div>` : ""}
 
-        ${record.osli ? `
+        ${record.denmahr ? `
         <div class="modal-info-row">
           <span class="modal-info-label">📜 ওসলি</span>
           <span class="modal-info-val">${record.osli}</span>
         </div>` : ""}
 
-        <div class="modal-footer">
-          <button class="btn-modal-delete" id="modal-delete-btn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
-            ডিলিট
-          </button>
-          <button class="btn-modal-close-bottom" id="modal-close-bottom">বন্ধ করুন</button>
-        </div>
+        <button class="btn-modal-close-bottom" id="modal-close-bottom">বন্ধ করুন</button>
       </div>
     </div>`;
 
@@ -247,10 +241,6 @@ export function showViewModal(record, { onDelete } = {}) {
   document.getElementById("modal-close-btn").addEventListener("click", removeModal);
   document.getElementById("modal-close-bottom").addEventListener("click", removeModal);
   modal.addEventListener("click", (e) => { if (e.target === modal) removeModal(); });
-
-  document.getElementById("modal-delete-btn").addEventListener("click", () => {
-    if (typeof onDelete === "function") onDelete(record.id, record);
-  });
 }
 
 // ── Edit Modal ────────────────────────────────────────────────
@@ -291,14 +281,6 @@ export function showEditModal(record, onSave) {
             <input type="text" id="edit-denmahr" value="${escHtml(record.denmahr)}" placeholder="দেনমোহর পরিমাণ" />
           </div>
           <div class="form-group">
-            <label>ওসলি</label>
-            <input type="text" id="edit-osli" value="${escHtml(record.osli)}" placeholder="ওসলি" />
-          </div>
-          <div class="form-group">
-            <label>বালাম নং</label>
-            <input type="text" id="edit-balam-number" value="${escHtml(record.balamNumber)}" placeholder="বালাম নং" />
-          </div>
-          <div class="form-group">
             <label>পেইজ নাম্বার</label>
             <input type="text" id="edit-page-number" value="${escHtml(record.pageNumber)}" placeholder="পেইজ নং" />
           </div>
@@ -331,12 +313,10 @@ export function showEditModal(record, onSave) {
     const updated = {
       groomName,
       brideName,
-      groomNid:    document.getElementById("edit-groom-nid").value.trim(),
-      brideNid:    document.getElementById("edit-bride-nid").value.trim(),
-      denmahr:     document.getElementById("edit-denmahr").value.trim(),
-      osli:        document.getElementById("edit-osli").value.trim(),
-      balamNumber: document.getElementById("edit-balam-number").value.trim(),
-      pageNumber:  document.getElementById("edit-page-number").value.trim(),
+      groomNid:   document.getElementById("edit-groom-nid").value.trim(),
+      brideNid:   document.getElementById("edit-bride-nid").value.trim(),
+      denmahr:    document.getElementById("edit-denmahr").value.trim(),
+      pageNumber: document.getElementById("edit-page-number").value.trim(),
     };
     const saveBtn = document.getElementById("modal-save-btn");
     setButtonLoading(saveBtn, true);
@@ -351,58 +331,6 @@ export function showEditModal(record, onSave) {
   });
 }
 
-// ── Confirm Delete Modal ──────────────────────────────────────
-export function showConfirmDelete(record, onConfirm) {
-  removeModal();
-
-  const modal = document.createElement("div");
-  modal.className = "modal-overlay";
-  modal.id = "app-modal";
-  modal.innerHTML = `
-    <div class="modal-box modal-box-confirm">
-      <div class="modal-header">
-        <h2 class="modal-title">রেকর্ড ডিলিট করুন</h2>
-        <button class="modal-close" id="modal-close-btn">✕</button>
-      </div>
-      <div class="modal-body" style="text-align:center; padding: 32px 24px;">
-        <div class="confirm-icon">🗑️</div>
-        <p class="confirm-msg">
-          <strong>${escHtml(record.groomName)}</strong> ও <strong>${escHtml(record.brideName)}</strong>-এর নিকাহ রেকর্ড
-          <span style="color:#dc3545;font-weight:700"> স্থায়ীভাবে মুছে যাবে।</span><br/>
-          <span style="color:var(--text-muted);font-size:0.85rem;margin-top:6px;display:block">এই কাজ আর পূর্বাবস্থায় ফেরানো যাবে না।</span>
-        </p>
-        <div class="modal-footer" style="margin-top:24px">
-          <button class="btn-modal-cancel" id="modal-cancel-btn">না, থাকুক</button>
-          <button class="btn-confirm-delete" id="modal-confirm-delete-btn">
-            <span class="btn-text">হ্যাঁ, ডিলিট করুন</span>
-            <div class="spinner"></div>
-          </button>
-        </div>
-      </div>
-    </div>`;
-
-  document.body.appendChild(modal);
-  requestAnimationFrame(() => modal.classList.add("modal-visible"));
-
-  document.getElementById("modal-close-btn").addEventListener("click", removeModal);
-  document.getElementById("modal-cancel-btn").addEventListener("click", removeModal);
-  modal.addEventListener("click", (e) => { if (e.target === modal) removeModal(); });
-
-  document.getElementById("modal-confirm-delete-btn").addEventListener("click", async () => {
-    const btn = document.getElementById("modal-confirm-delete-btn");
-    setButtonLoading(btn, true);
-    try {
-      await onConfirm(record.id);
-      showToast("✓ রেকর্ড ডিলিট হয়েছে", "success");
-      removeModal();
-    } catch (err) {
-      showToast("ডিলিট ব্যর্থ: " + err.message, "error");
-      setButtonLoading(btn, false);
-    }
-  });
-}
-
-// ── Helpers ───────────────────────────────────────────────────
 function removeModal() {
   const existing = document.getElementById("app-modal");
   if (existing) {
