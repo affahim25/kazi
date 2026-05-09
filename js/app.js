@@ -87,6 +87,8 @@ async function submitForm() {
     brideNid:   document.getElementById("bride-nid").value.trim(),
     denmahr:    document.getElementById("denmahr").value.trim(),
     pageNumber: document.getElementById("page-number").value.trim(),
+    balamNumber: document.getElementById("balam-number").value.trim(),
+    osli: document.getElementById("osli").value.trim(),
     groomImage: state.groomImageUrl || null,
     brideImage: state.brideImageUrl || null,
     createdAt:  new Date().toISOString(),
