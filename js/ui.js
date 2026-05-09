@@ -190,6 +190,7 @@ export function showViewModal(record) {
       </div>
       <div class="modal-body">
         <div class="modal-meta-row">
+         ${record.balamNumber ? `<div class="modal-page-badge">বালাম নং ${record.balamNumber}</div>` : ""}
           ${record.pageNumber ? `<div class="modal-page-badge">পেইজ ${record.pageNumber}</div>` : ""}
           <div class="modal-date">📅 ${date}</div>
         </div>
@@ -220,6 +221,12 @@ export function showViewModal(record) {
         <div class="modal-info-row">
           <span class="modal-info-label">💰 দেনমোহর</span>
           <span class="modal-info-val">${record.denmahr}</span>
+        </div>` : ""}
+
+        ${record.denmahr ? `
+        <div class="modal-info-row">
+          <span class="modal-info-label">📜 ওসলি</span>
+          <span class="modal-info-val">${record.osli}</span>
         </div>` : ""}
 
         <button class="btn-modal-close-bottom" id="modal-close-bottom">বন্ধ করুন</button>
