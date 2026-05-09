@@ -4,13 +4,13 @@ const CACHE_NAME = "nikah-registry-v1";
 
 // ফাইলগুলো অফলাইনেও কাজ করবে
 const ASSETS = [
-  "/index.html",
-  "/css/style.css",
-  "/js/app.js",
-  "/js/firebase.js",
-  "/js/cloudinary.js",
-  "/js/ui.js",
-  "/manifest.json",
+  "/kazi/index.html",
+  "/kazi/css/style.css",
+  "/kazi/js/app.js",
+  "/kazi/js/firebase.js",
+  "/kazi/js/cloudinary.js",
+  "/kazi/js/ui.js",
+  "/kazi/manifest.json",
   "https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
 ];
 
