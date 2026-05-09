@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>নিকাহ রেজিস্ট্রি</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#1a120b" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="নিকাহ রেজিস্ট্রি" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="header-ornament">☽</div>
+    <h1>নিকাহ রেজিস্ট্রি</h1>
+    <div class="header-ornament">☾</div>
+  </header>
+
+  <!-- ===== TAB NAV ===== -->
+  <nav class="tab-nav">
+    <button class="tab-btn active" data-tab="register">📝 নতুন নিকাহ</button>
+    <button class="tab-btn" data-tab="history">📋 হিস্ট্রি অফ নিকাহ</button>
+  </nav>
+
+  <!-- ===== REGISTER SECTION ===== -->
+  <section id="tab-register" class="section active">
+    <div class="card">
+      <div class="card-title">✦ নিকাহ রেজিস্ট্রেশন ফর্ম ✦</div>
+
+      <!-- Photo Uploads -->
+      <div class="photo-row">
+        <!-- Groom -->
+        <div class="photo-upload-box">
+          <label>জামাই ছবি</label>
+          <div class="photo-preview" id="groom-preview" data-target="groom-file">
+            <div class="photo-placeholder-icon">👤</div>
+            <div class="photo-placeholder-text">ছবি আপলোড করুন</div>
+          </div>
+          <input type="file" id="groom-file" accept="image/*" data-type="groom" />
+          <div class="upload-progress" id="groom-progress">
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="groom-bar"></div>
+            </div>
+            <div class="upload-status" id="groom-status">আপলোড হচ্ছে...</div>
+          </div>
+        </div>
+
+        <!-- Bride -->
+        <div class="photo-upload-box">
+          <label>বউ ছবি</label>
+          <div class="photo-preview" id="bride-preview" data-target="bride-file">
+            <div class="photo-placeholder-icon">👤</div>
+            <div class="photo-placeholder-text">ছবি আপলোড করুন</div>
+          </div>
+          <input type="file" id="bride-file" accept="image/*" data-type="bride" />
+          <div class="upload-progress" id="bride-progress">
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="bride-bar"></div>
+            </div>
+            <div class="upload-status" id="bride-status">আপলোড হচ্ছে...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Fields -->
+      <div class="form-section-title">নিকাহ তথ্য</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="groom-name">জামাই নাম *</label>
+          <input type="text" id="groom-name" placeholder="জামাইয়ের নাম লিখুন" />
+        </div>
+        <div class="form-group">
+          <label for="bride-name">বউ নাম *</label>
+          <input type="text" id="bride-name" placeholder="বউয়ের নাম লিখুন" />
+        </div>
+        <div class="form-group">
+          <label for="groom-nid">জামাই এনআইডি নম্বর</label>
+          <input type="text" id="groom-nid" placeholder="জামাইয়ের এনআইডি" />
+        </div>
+        <div class="form-group">
+          <label for="bride-nid">বউ এনআইডি নম্বর</label>
+          <input type="text" id="bride-nid" placeholder="বউয়ের এনআইডি" />
+        </div>
+        <div class="form-group">
+          <label for="denmahr">দেনমোহর</label>
+          <input type="text" id="denmahr" placeholder="দেনমোহর পরিমাণ" />
+        </div>
+        <div class="form-group">
+          <label for="page-number">পেইজ নাম্বার</label>
+          <input type="text" id="page-number" placeholder="রেজিস্টার পেইজ নং" />
+        </div>
+      </div>
+
+      <button class="btn-submit" id="submit-btn">
+        <span class="btn-text">সেভ করুন</span>
+        <div class="spinner"></div>
+      </button>
+    </div>
+  </section>
+
+  <!-- ===== HISTORY SECTION ===== -->
+  <section id="tab-history" class="section">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search-input" placeholder="সার্চ: নাম, এনআইডি, পেইজ নম্বর..." />
+    </div>
+    <div id="record-list" class="record-list">
+      <div class="loading-records">⏳ লোড হচ্ছে...</div>
+    </div>
+  </section>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Firebase SDK (ES Module via CDN) -->
+  <script type="module" src="js/firebase.js"></script>
+  <!-- App JS -->
+  <script type="module" src="js/app.js"></script>
+
+  <!-- Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(() => console.log('✓ Service Worker registered'))
+          .catch(err => console.warn('SW registration failed:', err));
+      });
+    }
+  </script>
+
+</body>
+</html>
