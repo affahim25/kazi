@@ -72,6 +72,7 @@ export function renderRecords(records, { onView, onEdit } = {}) {
         <div class="tl-card">
 
           <div class="tl-top-bar">
+          <div class="tl-badges-row">
             ${r.balamNumber ? `<span class="tl-page-badge">বালাম নং ${r.balamNumber}</span>` : "<span></span>"}
             ${r.pageNumber ? `<span class="tl-page-badge">পেইজ ${r.pageNumber}</span>` : "<span></span>"}
             <div class="tl-top-right">
