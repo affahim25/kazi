@@ -2,7 +2,7 @@
   "name": "নিকাহ রেজিস্ট্রি",
   "short_name": "নিকাহ",
   "description": "নিকাহর তথ্য ও ছবি সংরক্ষণের অ্যাপ",
-  "start_url": "/index.html",
+  "start_url": "kazi/index.html",
   "display": "standalone",
   "background_color": "#fdf6e3",
   "theme_color": "#1a120b",
