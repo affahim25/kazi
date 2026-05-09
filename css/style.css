@@ -582,22 +582,23 @@ input[type="file"] { display: none; }
 }
 
 /* ── Top bar ── */
+/* ── Top bar ── */
 .tl-top-bar {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
   align-items: center;
-  padding: 10px 18px;
+  padding: 8px 14px;
   background: linear-gradient(90deg, var(--dark) 0%, var(--dark-2) 100%);
   border-bottom: 1px solid var(--gold-dark);
-  gap: 8px;
+  gap: 6px;
 }
 
 .tl-page-badge {
   background: linear-gradient(135deg, var(--gold-dark), var(--gold));
   color: #fff;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  padding: 3px 12px;
+  padding: 3px 10px;
   border-radius: 20px;
   letter-spacing: 0.5px;
   flex-shrink: 0;
@@ -1388,4 +1389,34 @@ input[type="file"] { display: none; }
   .photo-empty-lg      { width: 76px; height: 76px; }
   .modal-name          { font-size: 0.9rem; }
   .edit-form-grid      { grid-template-columns: 1fr; }
+}
+
+/* মোবাইলে top-bar দুই লাইনে ভাগ হবে */
+.tl-badges-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 480px) {
+  .tl-top-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    padding: 8px 12px;
+  }
+
+  .tl-top-right {
+    margin-left: 0;
+    justify-content: flex-end;
+  }
+
+  .tl-date { display: none; }
+
+  .tl-btn {
+    padding: 5px 12px;
+    font-size: 0.72rem;
+  }
+
+  .tl-btn svg { width: 12px; height: 12px; }
 }
