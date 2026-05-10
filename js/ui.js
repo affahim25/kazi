@@ -227,7 +227,7 @@ export function showViewModal(record) {
 
         ${record.denmahr ? `
         <div class="modal-info-row">
-          <span class="modal-info-label">📜 ওসলি</span>
+          <span class="modal-info-label">📜 ওয়াসিল </span>
           <span class="modal-info-val">${record.osli}</span>
         </div>` : ""}
 
