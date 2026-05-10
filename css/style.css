@@ -1089,3 +1089,54 @@ input[type="file"] { display: none; }
   .edit-form-grid      { grid-template-columns: 1fr; }
 }
 
+.modal-box-confirm { max-width: 400px; }
+
+.confirm-icon {
+  font-size: 3.5rem;
+  display: block;
+  margin-bottom: 16px;
+  animation: wiggle 0.5s ease;
+}
+
+@keyframes wiggle {
+  0%,100% { transform: rotate(0deg); }
+  25%      { transform: rotate(-12deg); }
+  75%      { transform: rotate(12deg); }
+}
+
+.confirm-msg {
+  font-size: 0.97rem;
+  color: var(--text-main);
+  line-height: 1.75;
+}
+
+.btn-confirm-delete {
+  flex: 2;
+  padding: 12px;
+  background: linear-gradient(135deg, #c0392b, #e74c3c);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: var(--font);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(220,53,69,0.3);
+  transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-confirm-delete:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(220,53,69,0.45);
+}
+
+.btn-confirm-delete:disabled { opacity: 0.7; cursor: not-allowed; }
+.btn-confirm-delete.loading .btn-text { display: none; }
+.btn-confirm-delete.loading .spinner {
+  display: block;
+  border-color: rgba(255,255,255,0.3);
+  border-top-color: #fff;
+}
