@@ -361,6 +361,7 @@ export function showConfirmDelete(record, onConfirm) {
   modal.innerHTML = `
     <div class="modal-box modal-box-confirm">
       <div class="modal-header">
+        <div class="modal-header-ornament">⚠️</div>
         <h2 class="modal-title">রেকর্ড ডিলিট করুন</h2>
         <button class="modal-close" id="modal-close-btn">✕</button>
       </div>
