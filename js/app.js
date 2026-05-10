@@ -173,15 +173,23 @@ function rerenderList() {
 }
 
 // ── Search ────────────────────────────────────────────────────
-function bindSearch() {
-  document.getElementById("search-input").addEventListener("input", filterRecords);
+function filterFn(q) {
+  const ql = toBengaliDigits(q.toLowerCase().trim());
+  const qlEn = toEnglishDigits(q.toLowerCase().trim());
+  return (r) =>
+    [r.groomName, r.brideName, r.groomNid, r.brideNid, r.pageNumber, r.balamNumber]
+      .some((v) => {
+        const val = (v || "").toLowerCase();
+        return val.includes(ql) || val.includes(qlEn);
+      });
 }
 
-function filterFn(q) {
-  const ql = q.toLowerCase().trim();
-  return (r) =>
-    [r.groomName, r.brideName, r.groomNid, r.brideNid, r.pageNumber, r.balamNumber, r.balamNumber]
-      .some((v) => (v || "").toLowerCase().includes(ql));
+function toBengaliDigits(str) {
+  return str.replace(/[0-9]/g, (d) => '০১২৩৪৫৬৭৮৯'[d]);
+}
+
+function toEnglishDigits(str) {
+  return str.replace(/[০-৯]/g, (d) => '০১২৩৪৫৬৭৮৯'.indexOf(d).toString());
 }
 
 function filterRecords() {
