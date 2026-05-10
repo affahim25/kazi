@@ -180,7 +180,7 @@ function bindSearch() {
 function filterFn(q) {
   const ql = q.toLowerCase().trim();
   return (r) =>
-    [r.groomName, r.brideName, r.groomNid, r.brideNid, r.pageNumber, r.balamNumber]
+    [r.groomName, r.brideName, r.groomNid, r.brideNid, r.pageNumber, r.balamNumber, r.balamNumber]
       .some((v) => (v || "").toLowerCase().includes(ql));
 }
 
