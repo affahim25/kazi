@@ -184,14 +184,6 @@ function filterFn(q) {
       });
 }
 
-function toBengaliDigits(str) {
-  return str.replace(/[0-9]/g, (d) => '০১২৩৪৫৬৭৮৯'[d]);
-}
-
-function toEnglishDigits(str) {
-  return str.replace(/[০-৯]/g, (d) => '০১২৩৪৫৬৭৮৯'.indexOf(d).toString());
-}
-
 function filterRecords() {
   const q = document.getElementById("search-input").value;
   renderRecords(q.trim() ? state.allRecords.filter(filterFn(q)) : state.allRecords, handlers());
