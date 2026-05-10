@@ -124,7 +124,7 @@ export function renderRecords(records, { onView, onEdit } = {}) {
                 <span class="tl-denmahr-val">${r.denmahr}</span>
            </div>
   <div>
-    <span class="tl-osli-tag">📜 ওসলি</span>
+    <span class="tl-osli-tag">📜 ওয়াসিল </span>
     <span class="tl-osli-val">${r.osli}</span>
   </div>
 </div>` : ""}
